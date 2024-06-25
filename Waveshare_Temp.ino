@@ -8,7 +8,7 @@
 #include <Wire.h>
 #define SDA_PIN 21
 #define SCL_PIN 33
-#define I2C_DEV_ADDR  0x55
+#define I2C_DEV_ADDR  0x66
 #include <ui.h>
 #include "CST816S.h"
 #define EXAMPLE_LVGL_TICK_PERIOD_MS    2
@@ -136,7 +136,8 @@ void onReceive(int len)
 
   Serial.println(tIn);
   Serial.println(tOut);
-  lv_label_set_text_fmt(ui_IN_TEMP, "%d", tIn) ;
+  //lv_label_set_text_fmt(ui_IN_TEMP, "%d", tIn) ;
+  //lv_label_set_text_fmt(ui_OUT_TEMP, "%d", tOut) ;
 }
 
 /* 
@@ -159,35 +160,6 @@ int FixSign (int x)
 
 void setup()
 {
-Serial.begin( 115200 ); /* prepare for possible serial debug */
-Serial.setDebugOutput(true);
-Wire1.onReceive(onReceive);
-Wire1.onRequest(onRequest);
-Wire1.setPins(SDA_PIN,SCL_PIN);
-Wire1.begin((uint8_t) I2C_DEV_ADDR);
-////////// WIRE /////////////////
-////////// WIRE /////////////////
-
-
-
-
-
-////////// WIRE /////////////////
-////////// WIRE /////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     String LVGL_Arduino = "Hello Arduino! ";
     LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
 
@@ -270,6 +242,22 @@ Wire1.begin((uint8_t) I2C_DEV_ADDR);
     ui_init();
     
     Serial.println( "Setup done" );
+////////// WIRE /////////////////
+////////// WIRE /////////////////
+
+
+
+Serial.begin( 115200 ); /* prepare for possible serial debug */
+Serial.setDebugOutput(true);
+
+Wire1.setPins(SDA_PIN,SCL_PIN);
+Wire1.begin((uint8_t) I2C_DEV_ADDR);
+
+Wire1.onReceive(onReceive);
+Wire1.onRequest(onRequest);
+
+////////// WIRE /////////////////
+////////// WIRE /////////////////
 }
 
 void loop()
